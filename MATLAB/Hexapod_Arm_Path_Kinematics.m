@@ -1,0 +1,313 @@
+%% Simple robot from links as described in ch 7
+
+clear
+close all
+clc
+
+%% Make the arm with Link objects
+%
+% - I can't figure out how that first coordinate (angle) does anything, so
+% it might not do anything in 2020a and later versions of Matlab
+
+L1 = Link([0, 6.5, 2.5, -pi/2, 0])
+L2 = Link([0, 1.5, 8.5, 0, 0])
+L3 = Link([0, -1.5, 12, 0, 0])
+
+% Connect those Link Objects
+
+arm = SerialLink( [ L1 L2 L3 ],'name', '3-servo-robot-arm')
+
+% robot.fkine([80 -30 50], 'deg')  this does not work - looks like
+% still radians
+
+% this is a set of angles for each servo in radians
+q = [pi/2.2 -pi/6 pi/2.5]
+
+% this does the forward kinematics of the arm to get the pose P1 of the end
+P1 = arm.fkine(q)
+
+figure(1)
+arm.plot(q)
+
+% get the coordinates (points) pt1 of the Pose for P1
+pt1 = P1.t
+
+%% ikine version doesn't work in 2021a
+% 
+% ikine is for 6 links, but the mask forces the routine to ignore the last
+% 3 links
+% T = SE3([2.5, 18, 3])
+% q2 = arm.ikine(T, 'mask', [1 1 1 0 0 0])
+% 
+% arm.plot(q2)
+% 
+% % get the Pose P2 of the end for q2
+% P2 = arm.fkine(q2)
+% 
+% % get the coordinates (points) pt2 of the Pose for P2
+% pt2 = P2.t
+
+%% Inverse Kinematics
+% This one does the fminsearch version.
+
+% The starting angles (in radians) make sure the "elbow" is up in the air
+% Try a few to get an idea of good starting positions (radians!)
+start = [0 -.5 1]
+
+% The target position here is the end coordinate in cm.
+target = [2.5 8 3]'
+
+% This does the actual inverse calculation to get the angles into q3
+q3 = fminsearch( @(q3) norm( arm.fkine(q3).t - target ), start )
+
+% plot the arm with the rotations in q3
+arm.plot(q3)
+
+% get the Pose P3 of the end for q3 (do the forward kenematics)
+P3 = arm.fkine(q3)
+
+% get the coordinates (points) pt3 of the Pose for P3 (should match target)
+pt3 = P3.t
+
+%%
+% try some other positions
+% this will just print out the positions
+transl( arm.fkine([0.2,0,0]) )
+
+% This does the same thing - prints the end coordinates of the pose, but
+% now as a column vector
+arm.fkine([0.2,0,0]).t
+
+% this will get you the interactive plot
+arm.teach
+
+%% define path of end effector
+% this just draws a square in the air
+
+% path is just the end points you define
+clear path
+
+% p is a big array with all the points along the path.  Get with mstraj()
+clear p
+
+% ////////////////////////////////////////////////////////////
+% ////// THE USEFUL PART /////////////////////////////////////
+
+% MY OWN
+
+xFwd = 7     % 12 or -2   <-- (ignore these)
+xMid = 0
+xRev = -7    % -2 or 12   <--
+yOut = -13
+yMid = -13
+yIn = -9
+zUp = 6
+zMid = 2
+zDown = -6
+
+x1 = xFwd
+y1 = yOut
+z1 = zDown
+
+x2 = xRev
+y2 = yOut
+z2 = zDown
+
+x3 = xRev
+y3 = yMid
+z3 = zMid
+
+x4 = xRev
+y4 = yIn
+z4 = zUp
+
+x5 = xFwd
+y5 = yIn
+z5 = zUp
+
+x6 = xFwd
+y6 = yMid
+z6 = zMid
+
+
+% xf = 7;  % USEFUL
+% xb = -7; % 
+% yf = 13; % THIS WAS THE FORMAT USED 
+% yb = 10; % BEFORE I CHANGED IT TO THE 
+% zu = 4;  % ABOVE
+% zd = -6; % COMBINE WITH 'USEFUL' PATH BELOW
+
+% xf = -7;
+% xb = -7;
+% yf = 13;
+% yb = 12;
+% zu = 2;
+% zd = -6;
+
+% xf = 12;
+% xb = -2;
+% yf = 13;
+% yb = 12;
+% zu = 2;
+% zd = -6;
+
+% xf = 2;
+% xb = -12;
+% yf = 13;
+% yb = 12;
+% zu = 2;
+% zd = -6;
+
+% make the path
+% path = [xf y zd; xb y zd; xb y zu; xf y zu; xf y zd] * 1e-3
+% path = [xf yf zd; xb yf zd; xb yb zu; xf yb zu; xf yf zd] % USEFUL /////
+
+% MY OWN
+% path = [x1,y1,z1;x2,y2,z2;x3,y3,z3;x4,y4,z4;x5,y5,z5;x6,y6,z6;x1,y1,z1]
+path = [x1,y1,z1; x2,y2,z2; x3,y3,z3; x4,y4,z4; ...
+    x5,y5,z5; x6,y6,z6; x1,y1,z1]
+
+% These are the old ones from the walking robot
+% the .01 time step (parameter 5) makes it really slow
+% p = mstraj(path, [], [0,3, 0.25, 0.5, 0.25]', path(1,:), 0.01, 0);
+% p = mstraj(path, [], [0,3, 0.25, 0.5, 0.25]', path(1,:), 0.05, 0);
+%
+% try typing "help mstraj"
+% The six inputs are:
+%    path = end points of the segments or the waypoints along the way
+%    [10 10 10] = the speed limit for each axis here = 10cm/s
+%    [] = the time for each segment, but we don't know how many segments
+% there will be, so this is the default.  Can only specify either the time
+% for segment, or the speed for axis, but not both and must do one.
+%    path(1,:) = the starting point
+%    0.1 = the time step.  Combined with the speed, this gives how many total
+% points there will be on the trajectory.
+% If the result is jerky, make the timestep smaller or the speed slower.
+% If it is too slow, make the timestep bigger, or the speed faster.
+%    0 = the acceleration time at the waypoints
+p = mstraj(path, [10,10,10], [], path(1,:), 0.03, 0);
+
+rows = numrows(p)
+
+% This is useful to draw what you have so you can watch the arm trace it.
+plot3(path(:,1), path(:,2), path(:,3))
+
+%% My Stuff
+% This uses the same stuff as above. Comment this out if you don't want it
+% to override
+% This stuff is mostly for generating discrete
+
+clear path
+clear p
+
+xFwd = 7     % 12 or -2
+xMid = 0
+xRev = -7    % -2 or 12
+yOut = -13
+yMid = -13
+yIn = -9
+zUp = 6
+zMid = 2
+zDown = -6
+
+x1 = xFwd
+y1 = yOut
+z1 = zDown
+
+x2 = xRev
+y2 = yOut
+z2 = zDown
+
+x3 = xRev
+y3 = yMid
+z3 = zMid
+
+x4 = xRev
+y4 = yIn
+z4 = zUp
+
+x5 = xFwd
+y5 = yIn
+z5 = zUp
+
+x6 = xFwd
+y6 = yMid
+z6 = zMid
+
+
+path = [x1,y1,z1; x2,y2,z2; x3,y3,z3; x4,y4,z4; ...
+    x5,y5,z5; x6,y6,z6; x1,y1,z1]
+
+p = mstraj(path, [10,10,10], [], path(1,:), 0.03, 0);
+
+rows = numrows(p)
+
+% This is useful to draw what you have so you can watch the arm trace it.
+plot3(path(:,1), path(:,2), path(:,3))
+
+%% Do the inverse transforms on path (just the endpoints)
+% This does it with fminsearch.  
+% This section prints out everything.
+% You need a good starting point (in radians!) and then use the found
+% angles as the starting point for the next position.
+
+% clear q
+% clear qcycle
+% 
+% start = [0 -.5 1]
+% 
+% q = fminsearch( @(q) norm( arm.fkine(q).t - path(1,:)' ), start )
+% qcycle(1,:) = q
+% 
+% for i=2:numrows(path)
+%   q = fminsearch( @(q) norm( arm.fkine(q).t - path(i,:)' ), qcycle(i-1,:) )
+%   qcycle(i,:) = q
+% end
+% 
+% numrows(qcycle)
+
+%% Do the inverse transform on all the points in p
+% This does it with fminsearch.  
+% You need a good starting point (in radians!) and then use the found
+% angles as the starting point for the next position.
+
+% q is just a single set of three angles
+clear q
+
+% qcycle is the array with all the angles in radians
+clear qcycle
+
+start = [0 -.5 1];
+
+% do the first one by itself so you have a good "starting point" for all
+% the others in the array (the previous point is the next start point)
+q = fminsearch( @(q) norm( arm.fkine(q).t - p(1,:)' ), start );
+qcycle(1,:) = q;
+
+for i=2:numrows(p)
+  q = fminsearch( @(q) norm( arm.fkine(q).t - p(i,:)' ), qcycle(i-1,:) );
+  qcycle(i,:) = q;
+end
+
+% hundreds are a good total.  scores are too few. thousands too many
+numrows(qcycle)
+
+%%
+% this one repeats forever
+% leg.plot(qcycle, 'loop')
+%axis([-15,15,-10,20,-5,25])
+
+% watch it go through the trajectory
+arm.plot(qcycle)
+
+%% Convert to degrees and output to the screen as csv in curly brackets
+% Then you can copy and paste into your Arduino code
+
+clear degrees
+
+degrees = qcycle.*180./pi;
+
+for i=1:numrows(degrees)
+    fprintf('{ %.0f , %.0f , %.0f },\n',degrees(i,:))
+end
+

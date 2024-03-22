@@ -2,6 +2,8 @@
 
 This is a github repository originally published by Tristan Lee. Pretty much none of this work is fully mine. I'll try to fill out any credits as they come up. Most of the code I think is based on the textbook in our robotics class. Please feel free to add more info to this document as necessary.
 
+The uploaded matlab and arduino code are both for my personal hexapod robot. You will likely have to adjust initial positions and make sure servo designations align with those I've set up.
+
 
 # Contributors
 
@@ -10,7 +12,10 @@ Advisor: Dr. Hakes
 Contributors: Tristan Lee, Connor O'Keefe, Seth VanMatre
 
 # Info
+
 The main code can be found in the source (src) folder in this repository. It's meant to run in Visual Studio Code with the PlatformIO extension on an Arduino Mega 2560. You can use this platform to upload to both Github and Arduino in one spot. I'm still learning it myself, so not everything will be perfect, and you may have to look up a tutorial if unfamiliar. The main differences from the basic arduino IDE are that the functions and variables must be defined in order, and there's much better error handling and feedback. If you want to upload from the basic arduino IDE, just copy and paste the whole code (everything but "#include <Arduino.h>") into an empty arduino document and upload as normal.
+
+The MATLAB code will of course have to be copied and pasted to MATLAB.
 
 
 # Useful Links:
