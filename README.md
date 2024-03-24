@@ -14,7 +14,7 @@ Contributors: Tristan Lee, Connor O'Keefe, Seth VanMatre
 
 # Info
 
-The main code can be found in the source (src) folder in this repository. It's meant to run in Visual Studio Code with the PlatformIO extension on an Arduino Mega 2560. You can use this platform to upload to both Github and Arduino in one spot. I'm still learning it myself, so not everything will be perfect, and you may have to look up a tutorial if unfamiliar. The main differences from the basic arduino IDE are that the functions and variables must be defined in order, and there's much better error handling and feedback. If you want to upload from the basic arduino IDE, just copy and paste the whole code (everything but "#include <Arduino.h>") into an empty arduino document and upload as normal.
+The main code can be found in the source (src) folder in this repository. The arrays have been moved to their own header files. It's meant to run in Visual Studio Code with the PlatformIO extension on an Arduino Mega 2560. You can use this platform to upload to both Github and Arduino in one spot. I'm still learning it myself, so not everything will be perfect, and you may have to look up a tutorial if unfamiliar. The main differences from the basic arduino IDE are that the functions and variables must be defined in order, and there's much better error handling and feedback. If you want to upload from the basic arduino IDE, just copy and paste the whole code (everything but "#include <Arduino.h>") into an empty arduino document and upload as normal.
 
 The MATLAB code can be opened directly from your local copy of this repository. After saving, version control can be done easily from VSCode.
 
