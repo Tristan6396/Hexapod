@@ -21,11 +21,11 @@ The MATLAB code can be opened directly from your local copy of this repository. 
 
 Servos are labeled as defined below (They need to be relabeled on the hexapod
 from the way they were, THE LABELS ON THE HEXAPOD MAY NOT FIT THESE YET.)
-
+```
  A  FRONT  F
  B         E
  C   REAR  D
-
+```
 
 I'd like to implement the inverse kinematics into this arduino code rather than relying on outside generated arrays but I'm not sure how to go about this. Doing this would allow for more complex motions. 
 
@@ -64,11 +64,11 @@ Several gaits would be useful to have access to such as:
 
 -Tripod: classic hexapod gait. Three legs swing forward while the other three support and move the body forward. Statically stable, reliable, baseline speed. Most generally useful. [Source](https://hexapodrobots.weebly.com/types-of-robot-gait.html)
 
--Quadruped: Two (probably) symmetric legs swing forward while the other four support and move the body forward. Very stable but of course slower than tripod. Likely would be useful to have for feeling out the terrain with the two front feet. [Source](https://hexapodrobots.weebly.com/types-of-robot-gait.html)
+-Quadruped: Two (probably) symmetric legs swing forward while the other four support and move the body forward. Very stable but of course slower than tripod. Likely would be useful to have for feeling out the terrain with the two front feet by switching to a four-legged, one-by-one mode. [Source](https://hexapodrobots.weebly.com/types-of-robot-gait.html)
 
 -One-by-one: Extremely slow but stable. One leg swings forward at a time as the body inches forward with the other five legs. Could be useful for very difficult terrain but is probably overkill. [Source](https://hexapodrobots.weebly.com/types-of-robot-gait.html)                                        ^
 
--One-by-one but better: This is ripple (and wave) gait. These gaits move multiple legs at a time, but each starts moving offset from the others and the speed can be changed to ensure a good balance of speed and stability. Ripple gait also has a significant cool factor and is very spidery. [Source](https://hackaday.io/project/21904-hexapod-modelling-path-planning-and-control/log/62326-3-fundamentals-of-hexapod-robot)
+-Ripple and wave: One-by-one but better. These gaits move multiple legs at a time, but each starts moving offset from the others and the speed can be changed to ensure a good balance of speed and stability. Ripple gait also has a significant cool factor and is very spidery. [Source](https://hackaday.io/project/21904-hexapod-modelling-path-planning-and-control/log/62326-3-fundamentals-of-hexapod-robot)
 
 -All: Effectively belly-flopping. All six legs swing forward at once and then all six legs move the body forward. Maybe useful for ice or something. Probably not. Definitely funny anyways. If the servos are fast enough, this may be used to jump, though it definitely would not be fast enough to catch itself if it's jumping forward and would just slam.
 
