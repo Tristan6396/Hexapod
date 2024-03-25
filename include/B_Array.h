@@ -37,17 +37,17 @@ const PROGMEM int16_t PosArrayBground[][3] = {
 };
 
 // Array for B leg to go up
-const PROGMEM int16_t PosArrayBground[][3] = {
+const PROGMEM int16_t PosArrayBup[][3] = {
 
 };
 
 // Array for B leg to go down
-const PROGMEM int16_t PosArrayBground[][3] = {
+const PROGMEM int16_t PosArrayBdown[][3] = {
 
 };
 
 // Array for B leg to go forward
-const PROGMEM int16_t PosArrayBground[][3] = {
+const PROGMEM int16_t PosArrayBair[][3] = {
 
 };
 
