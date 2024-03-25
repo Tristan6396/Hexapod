@@ -1,3 +1,58 @@
+// Array for B leg to go across ground
+const PROGMEM int16_t PosArrayBground[][3] = {
+{ 70 , -8 , 84 },
+{ 71 , -8 , 84 },
+{ 72 , -8 , 85 },
+{ 74 , -8 , 85 },
+{ 75 , -8 , 86 },
+{ 76 , -8 , 86 },
+{ 77 , -8 , 87 },
+{ 78 , -9 , 87 },
+{ 80 , -9 , 88 },
+{ 81 , -9 , 88 },
+{ 82 , -9 , 88 },
+{ 84 , -9 , 88 },
+{ 85 , -9 , 88 },
+{ 86 , -9 , 89 },
+{ 87 , -9 , 89 },
+{ 89 , -9 , 89 },
+{ 90 , -9 , 89 },
+{ 91 , -9 , 89 },
+{ 93 , -9 , 89 },
+{ 94 , -9 , 89 },
+{ 95 , -9 , 88 },
+{ 96 , -9 , 88 },
+{ 98 , -9 , 88 },
+{ 99 , -9 , 88 },
+{ 100 , -9 , 88 },
+{ 102 , -9 , 87 },
+{ 103 , -8 , 87 },
+{ 104 , -8 , 86 },
+{ 105 , -8 , 86 },
+{ 106 , -8 , 85 },
+{ 108 , -8 , 85 },
+{ 109 , -8 , 84 },
+{ 110 , -8 , 84 },
+{ 111 , -8 , 83 },
+};
+
+// Array for B leg to go up
+const PROGMEM int16_t PosArrayBground[][3] = {
+
+};
+
+// Array for B leg to go down
+const PROGMEM int16_t PosArrayBground[][3] = {
+
+};
+
+// Array for B leg to go forward
+const PROGMEM int16_t PosArrayBground[][3] = {
+
+};
+
+
+
 // Array for B leg
 const PROGMEM int16_t PosArrayB[][3] = {
     {124, -67, 126},

@@ -18,7 +18,8 @@
 #include <F_Array.h>
 
 // Initial Angles and angle fixes
-#include <Initial_Angles_&_Fixes.h>
+#include <Initial_Angles_&_Fixes.h>    // For the big hexapod
+// #include <Initial_Angles_&_Fixes_(Mine).h>   // For my hexapod
 
 // Servo myservo;  // create servo object to control a servo
 Servo Ashoulder;
@@ -273,6 +274,7 @@ void setup()
   pinMode(CTRL0, INPUT);
   pinMode(CTRL1, INPUT);
 
+  // These are for the big hexapod
   Ashoulder.attach(53);
   Aelbow.attach(52);
   Awrist.attach(51);
@@ -291,6 +293,26 @@ void setup()
   Fshoulder.attach(36);
   Felbow.attach(37);
   Fwrist.attach(35);
+
+  // These are for my hexapod
+  // Ashoulder.attach(53);
+  // Aelbow.attach(52);
+  // Awrist.attach(51);
+  // Bshoulder.attach(50);
+  // Belbow.attach(49);
+  // Bwrist.attach(48);
+  // Cshoulder.attach(47);
+  // Celbow.attach(46);
+  // Cwrist.attach(45);
+  // Dshoulder.attach(44);
+  // Delbow.attach(43);
+  // Dwrist.attach(41);
+  // Eshoulder.attach(40);
+  // Eelbow.attach(39);
+  // Ewrist.attach(38);
+  // Fshoulder.attach(36);
+  // Felbow.attach(37);
+  // Fwrist.attach(35);
 
   Serial.begin(9600);
   Serial.setTimeout(10);
@@ -367,6 +389,6 @@ void loop()
   {
     // Just sit there and don't move.
     pattern0();
-    delay(5000);
+    delay(1000);
   }
 }

@@ -201,11 +201,11 @@ clear path
 clear p
 
 x1 = -5
-y1 = 13
-z1 = -4
+y1 = 9
+z1 = 2
 x2 = -5
-y2 = 9
-z2 = 2
+y2 = 13
+z2 = -4
 
 path = [x1,y1,z1; x2,y2,z2]
 

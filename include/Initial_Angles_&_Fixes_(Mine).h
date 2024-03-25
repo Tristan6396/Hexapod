@@ -1,3 +1,5 @@
+// These are for my own hexapod at home. Use the other one for the big hexapod
+
 // Set initial center angles
 int valA1 = 80; // Ashoulder
 int valA2 = 80; // Aelbow
@@ -22,8 +24,6 @@ int valE3 = 100; // Ewrist
 int valF1 = 90; // Fshoulder
 int valF2 = 90; // Felbow
 int valF3 = 90; // Fwrist
-
-
 
 // Tell how far away from initialAngle (90 degrees) the servos starting positions are
 int initialAngle = 90;
