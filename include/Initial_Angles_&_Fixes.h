@@ -1,27 +1,27 @@
 // Set initial center angles
-int valA1 = 80; // Ashoulder
-int valA2 = 80; // Aelbow
-int valA3 = 90; // Awrist
+int valA1 = 110; // Ashoulder
+int valA2 = 90; // Aelbow
+int valA3 = 80; // Awrist
 
 int valB1 = 100; // Bshoulder
-int valB2 = 80;  // Belbow
+int valB2 = 90;  // Belbow
 int valB3 = 80;  // Bwrist
 
-int valC1 = 90; // Cshoulder
+int valC1 = 85; // Cshoulder
 int valC2 = 90; // Celbow
-int valC3 = 90; // Cwrist
+int valC3 = 80; // Cwrist
 
-int valD1 = 80; // Dshoulder
+int valD1 = 105; // Dshoulder
 int valD2 = 90; // Delbow
-int valD3 = 90; // Dwrist
+int valD3 = 100; // Dwrist
 
-int valE1 = 90;  // Eshoulder
-int valE2 = 110; // Eelbow
-int valE3 = 100; // Ewrist
+int valE1 = 100;  // Eshoulder
+int valE2 = 90; // Eelbow
+int valE3 = 90; // Ewrist
 
-int valF1 = 90; // Fshoulder
+int valF1 = 75; // Fshoulder
 int valF2 = 90; // Felbow
-int valF3 = 90; // Fwrist
+int valF3 = 100; // Fwrist
 
 
 

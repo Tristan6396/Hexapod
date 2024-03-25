@@ -10,8 +10,11 @@ clc
 % it might not do anything in 2020a and later versions of Matlab
 
 L1 = Link([0, 6.5, 2.5, -pi/2, 0])
+L1.qlim = [-0.6109/2, 0.6109/2]%, 'standard')
 L2 = Link([0, 1.5, 8.5, 0, 0])
+L2.qlim = [-0.6109/2, 0.6109/2]%, 'standard')
 L3 = Link([0, -1.5, 12, 0, 0])
+L3.qlim = [-0.6109/2, 0.6109/2]%, 'standard')
 
 % Connect those Link Objects
 
@@ -195,19 +198,25 @@ arm.teach
 %% My Stuff
 % This uses the same stuff as above. Comment this out if you don't want it
 % to override
-% This stuff is mostly for generating discrete
+% This stuff is mostly for generating discrete chunks
 
 clear path
 clear p
 
-x1 = -5
-y1 = 13
+x1 = 4
+y1 = 10
 z1 = -4
-x2 = -5
-y2 = 9
+x2 = 4
+y2 = 8
 z2 = 2
+x3 = 14
+y3 = 8
+z3 = 2
+x4 = 14
+y4 = 10
+z4 = -4
 
-path = [x1,y1,z1; x2,y2,z2]
+path = [x4,y4,z4;x1,y1,z1; x2,y2,z2; x3,y3,z3;x4,y4,z4]
 
 p = mstraj(path, [10,10,10], [], path(1,:), 0.03, 0);
 
@@ -259,6 +268,11 @@ for i=2:numrows(p)
   q = fminsearch( @(q) norm( arm.fkine(q).t - p(i,:)' ), qcycle(i-1,:) );
   qcycle(i,:) = q;
 end
+
+% for i=1:numrows(p) // doesnt work
+%   q = arm.ikcon(p);
+%   qcycle(i,:) = q;
+% end
 
 % hundreds are a good total.  scores are too few. thousands too many
 numrows(qcycle)

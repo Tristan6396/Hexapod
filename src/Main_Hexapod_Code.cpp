@@ -275,24 +275,24 @@ void setup()
   pinMode(CTRL1, INPUT);
 
   // These are for the big hexapod
-  Ashoulder.attach(53);
-  Aelbow.attach(52);
-  Awrist.attach(51);
-  Bshoulder.attach(50);
-  Belbow.attach(49);
-  Bwrist.attach(48);
-  Cshoulder.attach(47);
-  Celbow.attach(46);
-  Cwrist.attach(45);
-  Dshoulder.attach(44);
-  Delbow.attach(43);
-  Dwrist.attach(41);
-  Eshoulder.attach(40);
-  Eelbow.attach(39);
-  Ewrist.attach(38);
-  Fshoulder.attach(36);
-  Felbow.attach(37);
-  Fwrist.attach(35);
+  Ashoulder.attach(28);
+  Aelbow.attach(30);
+  Awrist.attach(32);
+  Bshoulder.attach(38);
+  Belbow.attach(40);
+  Bwrist.attach(42);
+  Cshoulder.attach(48);
+  Celbow.attach(50);
+  Cwrist.attach(52);
+  Dshoulder.attach(49);
+  Delbow.attach(51);
+  Dwrist.attach(53);
+  Eshoulder.attach(39);
+  Eelbow.attach(41);
+  Ewrist.attach(43);
+  Fshoulder.attach(29);
+  Felbow.attach(31);
+  Fwrist.attach(33);
 
   // These are for my hexapod
   // Ashoulder.attach(53);
