@@ -10,8 +10,11 @@ clc
 % it might not do anything in 2020a and later versions of Matlab
 
 L1 = Link([0, 6.5, 2.5, -pi/2, 0])
+L1.qlim = [-0.6109/2, 0.6109/2]%, 'standard')
 L2 = Link([0, 1.5, 8.5, 0, 0])
+L2.qlim = [-0.6109/2, 0.6109/2]%, 'standard')
 L3 = Link([0, -1.5, 12, 0, 0])
+L3.qlim = [-0.6109/2, 0.6109/2]%, 'standard')
 
 % Connect those Link Objects
 
@@ -200,22 +203,22 @@ arm.teach
 clear path
 clear p
 
-x1 = 4
-y1 = 10
+x1 = 12
+y1 = 11
 z1 = -4
-x2 = 4
-y2 = 8
-z2 = 2
-x3 = 14
-y3 = 8
+x2 = 6
+y2 = 11
+z2 = -4
+x3 = 6
+y3 = 9
 z3 = 2
 x4 = 14
-y4 = 10
+y4 = 11
 z4 = -4
 
 path = [x4,y4,z4;x1,y1,z1; x2,y2,z2; x3,y3,z3;x4,y4,z4]
 
-p = mstraj(path, [10,10,10], [], path(1,:), 0.03, 0);
+p = mstraj(path, [10,10,10], [], path(1,:), 0.01, 0);
 
 rows = numrows(p)
 
@@ -254,22 +257,22 @@ clear q
 % qcycle is the array with all the angles in radians
 clear qcycle
 
-start = [0 -.5 1];
+start = [0 .5 -1]; %% mess with this to fix machine limit problems
 
 % do the first one by itself so you have a good "starting point" for all
 % the others in the array (the previous point is the next start point)
-% q = fminsearch( @(q) norm( arm.fkine(q).t - p(1,:)' ), start );
-% qcycle(1,:) = q;
-% 
-% for i=2:numrows(p)
-%   q = fminsearch( @(q) norm( arm.fkine(q).t - p(i,:)' ), qcycle(i-1,:) );
-%   qcycle(i,:) = q;
-% end
+q = fminsearch( @(q) norm( arm.fkine(q).t - p(1,:)' ), start );
+qcycle(1,:) = q;
 
-for i=1:numrows(p)
+for i=2:numrows(p)
   q = fminsearch( @(q) norm( arm.fkine(q).t - p(i,:)' ), qcycle(i-1,:) );
   qcycle(i,:) = q;
 end
+
+% for i=1:numrows(p) // doesnt work
+%   q = arm.ikcon(p);
+%   qcycle(i,:) = q;
+% end
 
 % hundreds are a good total.  scores are too few. thousands too many
 numrows(qcycle)

@@ -18,8 +18,8 @@
 #include <F_Array.h>
 
 // Initial Angles and angle fixes
-#include <Initial_Angles_&_Fixes.h>    // For the big hexapod
-// #include <Initial_Angles_&_Fixes_(Mine).h>   // For my hexapod
+// #include <Initial_Angles_&_Fixes.h>    // For the big hexapod
+#include <Initial_Angles_&_Fixes_(Mine).h>   // For my hexapod
 
 // Servo myservo;  // create servo object to control a servo
 Servo Ashoulder;
@@ -49,8 +49,8 @@ int tempval;
 int pos = 0; // variable to store the servo position
 
 // First and last places of arrays to go through
-int first = 0;
-int last = 160;
+int first = 1;
+int last = 480;
 
 ////  Custom Functions  ////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -203,22 +203,22 @@ arm.teach
 clear path
 clear p
 
-x1 = 4
-y1 = 10
+x1 = 10
+y1 = -11
 z1 = -4
 x2 = 4
-y2 = 8
-z2 = 2
-x3 = 14
-y3 = 8
+y2 = y1
+z2 = z1
+x3 = x2
+y3 = -9
 z3 = 2
-x4 = 14
-y4 = 10
-z4 = -4
+x4 = x1
+y4 = y3
+z4 = z3
 
-path = [x4,y4,z4;x1,y1,z1; x2,y2,z2; x3,y3,z3;x4,y4,z4]
+path = [x1,y1,z1; x2,y2,z2; x3,y3,z3;x4,y4,z4;x1,y1,z1]
 
-p = mstraj(path, [10,10,10], [], path(1,:), 0.03, 0);
+p = mstraj(path, [10,10,10], [], path(1,:), 0.005, 0);
 
 rows = numrows(p)
 
@@ -257,7 +257,7 @@ clear q
 % qcycle is the array with all the angles in radians
 clear qcycle
 
-start = [0 -.5 1];
+start = [1 -.5 -1]; %% mess with this to fix machine limit problems
 
 % do the first one by itself so you have a good "starting point" for all
 % the others in the array (the previous point is the next start point)
