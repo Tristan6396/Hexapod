@@ -19,7 +19,7 @@
 
 // Initial Angles and angle fixes
 // #include <Initial_Angles_&_Fixes.h>    // For the big hexapod
-#include <Initial_Angles_&_Fixes_(Mine).h>   // For my hexapod
+#include <Initial_Angles_&_Fixes_(Mine).h> // For my hexapod
 
 // Servo myservo;  // create servo object to control a servo
 Servo Ashoulder;
@@ -51,6 +51,24 @@ int pos = 0; // variable to store the servo position
 // First and last places of arrays to go through
 int first = 1;
 int last = 480;
+
+// Some useful offsets to set gaits here
+int aMult = 0;
+int bMult = 3;
+int cMult = 0;
+int dMult = 3;
+int eMult = 0;
+int fMult = 3;
+
+int a = first+((last/6)*aMult);;
+int b = first+((last/6)*bMult);;
+int c = first+((last/6)*cMult);;
+int d = first+((last/6)*dMult);;
+int e = first+((last/6)*eMult);
+int f = first+((last/6)*fMult);;
+int i = first;
+
+
 
 ////  Custom Functions  ////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -99,50 +117,89 @@ void pattern0()
 // *** Move exactly according to the array ***
 void pattern1()
 {
-  for (int i = first; i <= last - 1; i++)
+  int speed = 4;
+  if (a <= last)
   {
     // Just read the array and go to those angles
 
-    valA1 = pgm_read_word_near(&PosArrayA[i][0]);
-    valA2 = pgm_read_word_near(&PosArrayA[i][1]);
-    valA3 = pgm_read_word_near(&PosArrayA[i][2]);
+    valA1 = pgm_read_word_near(&PosArrayA[a][0]);
+    valA2 = pgm_read_word_near(&PosArrayA[a][1]);
+    valA3 = pgm_read_word_near(&PosArrayA[a][2]);
 
-    valB1 = pgm_read_word_near(&PosArrayB[i][0]);
-    valB2 = pgm_read_word_near(&PosArrayB[i][1]);
-    valB3 = pgm_read_word_near(&PosArrayB[i][2]);
+    //   These printouts were for debugging
+    //  Serial.print("Direct from the array a:   ");
+    //  Serial.print(a);
+    //  Serial.print(",   shoulder:   ");
+    //  Serial.print(valA1);
+    //  Serial.print(",   elbow:   ");
+    //  Serial.print(valA2);
+    //  Serial.print(",   wrist:   ");
+    //  Serial.println(valA3);
 
-    valC1 = pgm_read_word_near(&PosArrayC[i][0]);
-    valC2 = pgm_read_word_near(&PosArrayC[i][1]);
-    valC3 = pgm_read_word_near(&PosArrayC[i][2]);
+    a = a + speed;
+    if (a > last)
+    {
+      a = first;
+    }
+  }
+  if (b <= last)
+  {
+    valB1 = pgm_read_word_near(&PosArrayB[b][0]);
+    valB2 = pgm_read_word_near(&PosArrayB[b][1]);
+    valB3 = pgm_read_word_near(&PosArrayB[b][2]);
+    b = b + speed;
+    if (b > last)
+    {
+      b = first;
+    }
+  }
+  if (c <= last)
+  {
+    valC1 = pgm_read_word_near(&PosArrayC[c][0]);
+    valC2 = pgm_read_word_near(&PosArrayC[c][1]);
+    valC3 = pgm_read_word_near(&PosArrayC[c][2]);
+    c = c + speed;
+    if (c > last)
+    {
+      c = first;
+    }
+  }
+  if (d <= last)
+  {
+    valD1 = pgm_read_word_near(&PosArrayD[d][0]);
+    valD2 = pgm_read_word_near(&PosArrayD[d][1]);
+    valD3 = pgm_read_word_near(&PosArrayD[d][2]);
+    d = d + speed;
+    if (d > last)
+    {
+      d = first;
+    }
+  }
+  if (e <= last)
+  {
+    valE1 = pgm_read_word_near(&PosArrayE[e][0]);
+    valE2 = pgm_read_word_near(&PosArrayE[e][1]);
+    valE3 = pgm_read_word_near(&PosArrayE[e][2]);
+    e = e + speed;
+    if (e > last)
+    {
+      e = first;
+    }
+  }
+  if (f <= last)
+  {
+    valF1 = pgm_read_word_near(&PosArrayF[f][0]);
+    valF2 = pgm_read_word_near(&PosArrayF[f][1]);
+    valF3 = pgm_read_word_near(&PosArrayF[f][2]);
+    f = f + speed;
+    if (f > last)
+    {
+      f = first;
+    }
+  }
 
-    valD1 = pgm_read_word_near(&PosArrayD[i][0]);
-    valD2 = pgm_read_word_near(&PosArrayD[i][1]);
-    valD3 = pgm_read_word_near(&PosArrayD[i][2]);
-
-    valE1 = pgm_read_word_near(&PosArrayE[i][0]);
-    valE2 = pgm_read_word_near(&PosArrayE[i][1]);
-    valE3 = pgm_read_word_near(&PosArrayE[i][2]);
-
-    valF1 = pgm_read_word_near(&PosArrayF[i][0]);
-    valF2 = pgm_read_word_near(&PosArrayF[i][1]);
-    valF3 = pgm_read_word_near(&PosArrayF[i][2]);
-
-    // These printouts were for debugging
-    //    Serial.print("Direct from the array i:   ");
-    //    Serial.print(i);
-    //    Serial.print(",   shoulder:   ");
-    //    Serial.print(PosArrayA[i][0]);
-    //    Serial.print(",   elbow:   ");
-    //    Serial.print(PosArrayA[i][1]);
-    //    Serial.print(",   wrist:   ");
-    //    Serial.print(PosArrayA[i][2]);
-    //    Serial.print(",   shoulder:   ");
-    //    Serial.print(valA1);
-    //    Serial.print(",   elbow:   ");
-    //    Serial.print(valA2);
-    //    Serial.print(",   wrist:   ");
-    //    Serial.println(valA3);
-
+  if (i <= last)
+  {
     // Modify to convert the "Matlab" angles into "Servo" angles
     valA1 = fixAshoulder(valA1);
     valA2 = fixAelbow(valA2);
@@ -190,19 +247,25 @@ void pattern1()
     // The writing to the screen takes a long time and makes the motion not as smooth
     // Use this for debugging
     //
-    //    Serial.print("Servo angles i:   ");
-    //    Serial.print(i);
-    //    Serial.print(",   shoulder:   ");
-    //    Serial.print(valD1);
-    //    Serial.print(",   elbow:   ");
-    //    Serial.print(valD2);
-    //    Serial.print(",   wrist:   ");
-    //    Serial.println(valD3);
+    //  Serial.print("Servo angles i:   ");
+    //  Serial.print(i);
+    //  Serial.print(",   shoulder:   ");
+    //  Serial.print(valA1);
+    //  Serial.print(",   elbow:   ");
+    //  Serial.print(valA2);
+    //  Serial.print(",   wrist:   ");
+    //  Serial.println(valA3);
     //
     // If the delay is too long or too short the movement is jerky.
     // This probably depends on the number of servos you are controlling
     //
     delay(15); // waits 15 ms for the servo to reach the position
+
+    i = i + speed;
+    if (i >= last)
+    {
+      i = first;
+    }
   }
 }
 
