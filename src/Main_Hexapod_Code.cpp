@@ -1,5 +1,17 @@
 #include <Arduino.h>
 
+// Bugs:
+// - changing between gaits mid walking seems to be possible but sometimes does weird stuff, though this may just be something to do with pattern 3
+// - Pattern 0 gets its default values changed so is a 'stop' instead of a 'return to origin'
+
+// Add:
+// - reverse (add another servo update function that simply goes in reverse? would also be useful when turning)
+// - a way to smoothly change between gaits without large jerks
+// - turning
+// - sensors
+// - strafing
+// - 
+
 ////  Initialization  //////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -70,6 +82,12 @@ int f = first + ((last / 6) * fMult);
 int i = first;
 
 int speed = 8;
+int aMultNew;
+int bMultNew;
+int cMultNew;
+int dMultNew;
+int eMultNew;
+int fMultNew;
 
 ////  Custom Functions  ////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -267,28 +285,13 @@ void upServ()
       i = first;
     }
   }
-  if (a == first)
+  if ((aMult != aMultNew) || (bMult != bMultNew) || (cMult != cMultNew) || (dMult != dMultNew) || (eMult != eMultNew) || (fMult != fMultNew))
   {
     a = first + ((last / 6) * aMult);
-  }
-  if (b == first)
-  {
     b = first + ((last / 6) * bMult);
-  }
-  if (c == first)
-  {
     c = first + ((last / 6) * cMult);
-  }
-  if (d == first)
-  {
     d = first + ((last / 6) * dMult);
-  }
-  if (e == first)
-  {
     e = first + ((last / 6) * eMult);
-  }
-  if (f == first)
-  {
     f = first + ((last / 6) * fMult);
   }
 }
@@ -297,12 +300,12 @@ void upServ()
 void pattern1()
 {
   speed = 8;
-  int aMult = 0;
-  int bMult = 3;
-  int cMult = 0;
-  int dMult = 3;
-  int eMult = 0;
-  int fMult = 3;
+  aMultNew = 0;
+  bMultNew = 3;
+  cMultNew = 0;
+  dMultNew = 3;
+  eMultNew = 0;
+  fMultNew = 3;
   upServ();
 }
 
@@ -310,12 +313,12 @@ void pattern1()
 void pattern2()
 {
   speed = 2;
-  int aMult = 0;
-  int bMult = 3;
-  int cMult = 0;
-  int dMult = 3;
-  int eMult = 0;
-  int fMult = 3;
+  aMultNew = 0;
+  bMultNew = 3;
+  cMultNew = 0;
+  dMultNew = 3;
+  eMultNew = 0;
+  fMultNew = 3;
   upServ();
 }
 
@@ -323,12 +326,12 @@ void pattern2()
 void pattern3()
 {
   speed = 8;
-  int aMult = 0;
-  int bMult = 0;
-  int cMult = 0;
-  int dMult = 0;
-  int eMult = 0;
-  int fMult = 0;
+  aMultNew = 0;
+  bMultNew = 0;
+  cMultNew = 0;
+  dMultNew = 0;
+  eMultNew = 0;
+  fMultNew = 0;
   upServ();
 }
 
@@ -422,7 +425,7 @@ void setup()
   // Serial.print(",   wrist:   ");
   // Serial.println(valD3);
 
-  delay(10000); // waits 10 s for the hexapod to get set down
+  delay(5000); // waits 5s for the hexapod to get set down
 }
 
 void loop()
@@ -438,19 +441,15 @@ void loop()
   {
     // *** get the control angles from the array ***
     pattern1();
-    // delay(5000);
   }
   else if (control == 2)
   {
     // *** Read the angles one at a time and go there ***
     pattern2();
-    delay(5000);
   }
   else if (control == 3)
   {
-    // Currently unused
     pattern3();
-    // delay(10);   // if needed
   }
   else
   {
