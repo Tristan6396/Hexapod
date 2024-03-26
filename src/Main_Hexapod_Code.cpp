@@ -53,12 +53,21 @@ int first = 1;
 int last = 480;
 
 // Some useful offsets to set gaits here
+// Tripod Gait
 int aMult = 0;
 int bMult = 3;
 int cMult = 0;
 int dMult = 3;
 int eMult = 0;
 int fMult = 3;
+
+// // Dance
+// int aMult = 0;
+// int bMult = 0;
+// int cMult = 0;
+// int dMult = 0;
+// int eMult = 0;
+// int fMult = 0;
 
 int a = first+((last/6)*aMult);;
 int b = first+((last/6)*bMult);;
@@ -117,7 +126,7 @@ void pattern0()
 // *** Move exactly according to the array ***
 void pattern1()
 {
-  int speed = 4;
+  int speed = 8;
   if (a <= last)
   {
     // Just read the array and go to those angles
