@@ -36,28 +36,18 @@ Should the hexapod have a 'front'? Turning the front toward the direction of mov
 
 One possibility is a tilt sensor attached to the chassis of the hexapod maybe paired with a sensor on the tip of each foot which can sense pressure or some other indicator that it is touching the ground, allowing many complex tasks like:
 
--Self-calibration: no more dealing with foot tips not making full contact,
-evening the load between servos,
+-Self-calibration: no more dealing with foot tips not making full contact, evening the load between servos,
 
--More complex balancing: it would be able to tell when it is tipping and
-which feet are the problem, as well as being able to feel if it has a
-foothold (maybe),
+-More complex balancing: it would be able to tell when it is tipping and which feet are the problem, as well as being able to feel if it has a foothold (maybe). It could lower its center of gravity or raise the legs that are making contact as a response.
 
--The ability to determine when it is stuck: It would be able to tell when a
-foot is making contact when it shouldn't or vice versa. When it gets
-especially stuck, it may also be able to stand on its back four legs
-and feel out any obstacles close to the ground with its front two legs. It
-could rely on an ultrasonic sensor for anything higher up.
+-The ability to determine when it is stuck: It would be able to tell when a foot is making contact when it shouldn't or vice versa. When it gets especially stuck, it may also be able to stand on its back four legs and feel out any obstacles close to the ground with its front two legs. It could rely on an ultrasonic sensor for anything higher up.
 
--Detecting missing limbs; Not really useful for us, but it could adapt its
-gait based on whether it has lost a limb as long as it can tell.
+-Detecting missing limbs; Not really useful for us, but it could adapt its gait based on whether it has lost a limb as long as it can tell when a sensor signal is lost.
 
-These sensors could be pressure sensors (maybe a spring and potentiometer,
-not sure), buttons (probably too fragile), or even IR distance sensors.
+These sensors could be pressure sensors (maybe a spring and potentiometer, not sure), buttons (probably too fragile, maybe okay with a spring), or even IR distance sensors.
 
 
-An ultrasonic sensor facing downward may be useful for telling distance from
-the ground.
+An ultrasonic sensor facing downward may be useful for telling the distance of the body from the ground.
 
 
 Several gaits would be useful to have access to such as:
