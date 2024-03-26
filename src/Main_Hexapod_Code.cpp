@@ -61,23 +61,15 @@ int dMult = 3;
 int eMult = 0;
 int fMult = 3;
 
-// // Dance
-// int aMult = 0;
-// int bMult = 0;
-// int cMult = 0;
-// int dMult = 0;
-// int eMult = 0;
-// int fMult = 0;
-
-int a = first+((last/6)*aMult);;
-int b = first+((last/6)*bMult);;
-int c = first+((last/6)*cMult);;
-int d = first+((last/6)*dMult);;
-int e = first+((last/6)*eMult);
-int f = first+((last/6)*fMult);;
+int a = first + ((last / 6) * aMult);
+int b = first + ((last / 6) * bMult);
+int c = first + ((last / 6) * cMult);
+int d = first + ((last / 6) * dMult);
+int e = first + ((last / 6) * eMult);
+int f = first + ((last / 6) * fMult);
 int i = first;
 
-
+int speed = 8;
 
 ////  Custom Functions  ////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -123,10 +115,9 @@ void pattern0()
   Fwrist.write(valF3);
 }
 
-// *** Move exactly according to the array ***
-void pattern1()
+// UPdates SERVo motor angles based on speed and starting offsets
+void upServ()
 {
-  int speed = 8;
   if (a <= last)
   {
     // Just read the array and go to those angles
@@ -276,65 +267,69 @@ void pattern1()
       i = first;
     }
   }
+  if (a == first)
+  {
+    a = first + ((last / 6) * aMult);
+  }
+  if (b == first)
+  {
+    b = first + ((last / 6) * bMult);
+  }
+  if (c == first)
+  {
+    c = first + ((last / 6) * cMult);
+  }
+  if (d == first)
+  {
+    d = first + ((last / 6) * dMult);
+  }
+  if (e == first)
+  {
+    e = first + ((last / 6) * eMult);
+  }
+  if (f == first)
+  {
+    f = first + ((last / 6) * fMult);
+  }
 }
 
-// *** Read the angles one at a time and go there ***
+// *** Move forward fast ***
+void pattern1()
+{
+  speed = 8;
+  int aMult = 0;
+  int bMult = 3;
+  int cMult = 0;
+  int dMult = 3;
+  int eMult = 0;
+  int fMult = 3;
+  upServ();
+}
+
+// *** Move forward slow ***
 void pattern2()
 {
-  Serial.print("Enter value for shoulder: ");
-  delay(500);
-  while (Serial.available() == 0)
-  {
-  }
-  delay(500);
-  valD1 = Serial.parseInt();
-
-  delay(500);
-  Serial.print("Enter value for elbow: ");
-  delay(500);
-  while (Serial.available() == 0)
-  {
-  }
-  delay(500);
-  valD2 = Serial.parseInt();
-
-  delay(500);
-  Serial.print("Enter value for wrist: ");
-  delay(500);
-  while (Serial.available() == 0)
-  {
-  }
-  delay(500);
-  valD3 = Serial.parseInt();
-
-  Serial.print("Before fixing :");
-  Serial.print("  shoulder:   ");
-  Serial.print(valD1);
-  Serial.print(",   elbow:   ");
-  Serial.print(valD2);
-  Serial.print(",   wrist:   ");
-  Serial.println(valD3);
-  valD1 = fixDshoulder(valD1);
-  valD2 = fixDelbow(valD2);
-  valD3 = fixDwrist(valD3);
-
-  Serial.print("After fixing :");
-  Serial.print("  shoulder:   ");
-  Serial.print(valD1);
-  Serial.print(",   elbow:   ");
-  Serial.print(valD2);
-  Serial.print(",   wrist:   ");
-  Serial.println(valD3);
-
-  Dshoulder.write(valD1); // tell servo to go to position in variable 'pos'
-  Delbow.write(valD2);    // tell servo to go to position in variable 'pos'
-  Dwrist.write(valD3);    // tell servo to go to position in variable 'pos'
+  speed = 2;
+  int aMult = 0;
+  int bMult = 3;
+  int cMult = 0;
+  int dMult = 3;
+  int eMult = 0;
+  int fMult = 3;
+  upServ();
 }
 
-// *** [unused] ***
+// *** DANCE MODE ***
 void pattern3()
 {
-  // code
+  speed = 8;
+  int aMult = 0;
+  int bMult = 0;
+  int cMult = 0;
+  int dMult = 0;
+  int eMult = 0;
+  int fMult = 0;
+  upServ();
 }
 
 ////  Main Code  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
