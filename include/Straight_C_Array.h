@@ -1,23 +1,3 @@
-// Array for C leg to go across ground
-const PROGMEM int16_t PosArrayCground[][3] = {
-
-};
-
-// Array for C leg to go up
-const PROGMEM int16_t PosArrayCup[][3] = {
-
-};
-
-// Array for C leg to go down
-const PROGMEM int16_t PosArrayCdown[][3] = {
-
-};
-
-// Array for C leg to go forward
-const PROGMEM int16_t PosArrayCair[][3] = {
-
-};
-
 // Array for C leg
 const PROGMEM int16_t PosArrayC[][3] = {
     { 110 , -10 , 96 },
