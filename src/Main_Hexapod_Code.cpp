@@ -65,7 +65,7 @@ int first = 1;
 int last = 480;
 
 // Some useful offsets to set gaits here
-// Tripod Gait
+// Tripod Gait Default
 int aMult = 0;
 int bMult = 3;
 int cMult = 0;
