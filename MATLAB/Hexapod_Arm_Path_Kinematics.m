@@ -203,18 +203,95 @@ arm.teach
 clear path
 clear p
 
+% % For motor A
+% x1 = 4
+% y1 = 11
+% z1 = -6
+% x2 = 10
+% y2 = y1
+% z2 = z1
+% x3 = x2
+% y3 = 11
+% z3 = 4
+% x4 = x1
+% y4 = y3
+% z4 = z3
+% start = [1 .5 1];
+
+% % For motor B
+% x1 = -3
+% y1 = 11
+% z1 = -6
+% x2 = 3
+% y2 = y1
+% z2 = z1
+% x3 = x2
+% y3 = 11
+% z3 = 4
+% x4 = x1
+% y4 = y3
+% z4 = z3
+% start = [1 .5 1];
+
+% % For motor C
+% x1 = -10
+% y1 = 11
+% z1 = -6
+% x2 = -4
+% y2 = y1
+% z2 = z1
+% x3 = x2
+% y3 = 11
+% z3 = 4
+% x4 = x1
+% y4 = y3
+% z4 = z3
+% start = [1 .5 1];
+
+% % For motor D
+% x1 = -10
+% y1 = -11
+% z1 = -6
+% x2 = -4
+% y2 = y1
+% z2 = z1
+% x3 = x2
+% y3 = -11
+% z3 = 4
+% x4 = x1
+% y4 = y3
+% z4 = z3
+% start = [-1 .5 1];
+
+% % For motor E
+% x1 = 3
+% y1 = -11
+% z1 = -6
+% x2 = -3
+% y2 = y1
+% z2 = z1
+% x3 = x2
+% y3 = -11
+% z3 = 4
+% x4 = x1
+% y4 = y3
+% z4 = z3
+% start = [1 .5 1];
+
+% For motor F
 x1 = 10
 y1 = -11
-z1 = -4
+z1 = -6
 x2 = 4
 y2 = y1
 z2 = z1
 x3 = x2
-y3 = -9
-z3 = 2
+y3 = -11
+z3 = 4
 x4 = x1
 y4 = y3
 z4 = z3
+start = [1 .5 1];
 
 path = [x1,y1,z1; x2,y2,z2; x3,y3,z3;x4,y4,z4;x1,y1,z1]
 
@@ -257,7 +334,7 @@ clear q
 % qcycle is the array with all the angles in radians
 clear qcycle
 
-start = [1 -.5 -1]; %% mess with this to fix machine limit problems
+% start = [1 .5 1]; %% mess with this to fix machine limit problems
 
 % do the first one by itself so you have a good "starting point" for all
 % the others in the array (the previous point is the next start point)

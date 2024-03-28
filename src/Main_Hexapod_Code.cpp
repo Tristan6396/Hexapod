@@ -21,9 +21,10 @@
 
 #include <Servo.h>
 
-#define CTRL1 9
-#define CTRL10 10
-#define CTRL100 11
+// Control pin initialization (may not be right for big hexapod)
+#define CTRL1 8
+#define CTRL10 9
+#define CTRL100 10
 
 // Import arrays
 #include <Straight_A_Array.h>
@@ -57,6 +58,46 @@ Servo Fshoulder;
 Servo Felbow;
 Servo Fwrist;
 
+// Initialize target integers
+int valA1set;
+int valA2set;
+int valA3set;
+int valB1set;
+int valB2set;
+int valB3set;
+int valC1set;
+int valC2set;
+int valC3set;
+int valD1set;
+int valD2set;
+int valD3set;
+int valE1set;
+int valE2set;
+int valE3set;
+int valF1set;
+int valF2set;
+int valF3set;
+
+// Initialize updating integers
+int valA1update;
+int valA2update;
+int valA3update;
+int valB1update;
+int valB2update;
+int valB3update;
+int valC1update;
+int valC2update;
+int valC3update;
+int valD1update;
+int valD2update;
+int valD3update;
+int valE1update;
+int valE2update;
+int valE3update;
+int valF1update;
+int valF2update;
+int valF3update;
+
 int control = 0;
 int control1 = 0;
 int control10 = 0;
@@ -69,7 +110,7 @@ int pos = 0; // variable to store the servo position
 
 // First and last places of arrays to go through
 int first = 1;
-int last = 480;
+int last = 640;
 
 // Some useful offsets to set gaits here
 // Tripod Gait Default
@@ -224,29 +265,29 @@ void readStraightArrays()
 void fixAngles()
 {
   // Modify to convert the "Matlab" angles into "Servo" angles
-  valA1 = fixAshoulder(valA1);
-  valA2 = fixAelbow(valA2);
-  valA3 = fixAwrist(valA3);
+  valA1set = fixAshoulder(valA1);
+  valA2set = fixAelbow(valA2);
+  valA3set = fixAwrist(valA3);
 
-  valB1 = fixBshoulder(valB1);
-  valB2 = fixBelbow(valB2);
-  valB3 = fixBwrist(valB3);
+  valB1set = fixBshoulder(valB1);
+  valB2set = fixBelbow(valB2);
+  valB3set = fixBwrist(valB3);
 
-  valC1 = fixCshoulder(valC1);
-  valC2 = fixCelbow(valC2);
-  valC3 = fixCwrist(valC3);
+  valC1set = fixCshoulder(valC1);
+  valC2set = fixCelbow(valC2);
+  valC3set = fixCwrist(valC3);
 
-  valD1 = fixDshoulder(valD1);
-  valD2 = fixDelbow(valD2);
-  valD3 = fixDwrist(valD3);
+  valD1set = fixDshoulder(valD1);
+  valD2set = fixDelbow(valD2);
+  valD3set = fixDwrist(valD3);
 
-  valE1 = fixEshoulder(valE1);
-  valE2 = fixEelbow(valE2);
-  valE3 = fixEwrist(valE3);
+  valE1set = fixEshoulder(valE1);
+  valE2set = fixEelbow(valE2);
+  valE3set = fixEwrist(valE3);
 
-  valF1 = fixFshoulder(valF1);
-  valF2 = fixFelbow(valF2);
-  valF3 = fixFwrist(valF3);
+  valF1set = fixFshoulder(valF1);
+  valF2set = fixFelbow(valF2);
+  valF3set = fixFwrist(valF3);
 }
 
 void smoothResponse()
@@ -254,29 +295,29 @@ void smoothResponse()
   // Gets rid of jerkiness for when changing gaits
   // Currently does nothing
   // Maybe make a function like in fixAngles?
-  valA1 = valA1;
-  valA2 = valA2;
-  valA3 = valA3;
+  valA1update = valA1set;
+  valA2update = valA2set;
+  valA3update = valA3set;
 
-  valB1 = valB1;
-  valB2 = valB2;
-  valB3 = valB3;
+  valB1update = valB1set;
+  valB2update = valB2set;
+  valB3update = valB3set;
 
-  valC1 = valC1;
-  valC2 = valC2;
-  valC3 = valC3;
+  valC1update = valC1set;
+  valC2update = valC2set;
+  valC3update = valC3set;
 
-  valD1 = valD1;
-  valD2 = valD2;
-  valD3 = valD3;
+  valD1update = valD1set;
+  valD2update = valD2set;
+  valD3update = valD3set;
 
-  valE1 = valE1;
-  valE2 = valE2;
-  valE3 = valE3;
+  valE1update = valE1set;
+  valE2update = valE2set;
+  valE3update = valE3set;
 
-  valF1 = valF1;
-  valF2 = valF2;
-  valF3 = valF3;
+  valF1update = valF1set;
+  valF2update = valF2set;
+  valF3update = valF3set;
 }
 
 void gaitCheck()
@@ -299,29 +340,29 @@ void upServ()
   if (i <= last)
   {
 
-    Ashoulder.write(valA1); // tell servo to go to position in variable 'pos'
-    Aelbow.write(valA2);    // tell servo to go to position in variable 'pos'
-    Awrist.write(valA3);    // tell servo to go to position in variable 'pos'
+    Ashoulder.write(valA1update); // tell servo to go to position in variable 'pos'
+    Aelbow.write(valA2update);    // tell servo to go to position in variable 'pos'
+    Awrist.write(valA3update);    // tell servo to go to position in variable 'pos'
 
-    Bshoulder.write(valB1); // tell servo to go to position in variable 'pos'
-    Belbow.write(valB2);    // tell servo to go to position in variable 'pos'
-    Bwrist.write(valB3);    // tell servo to go to position in variable 'pos'
+    Bshoulder.write(valB1update); // tell servo to go to position in variable 'pos'
+    Belbow.write(valB2update);    // tell servo to go to position in variable 'pos'
+    Bwrist.write(valB3update);    // tell servo to go to position in variable 'pos'
 
-    Cshoulder.write(valC1); // tell servo to go to position in variable 'pos'
-    Celbow.write(valC2);    // tell servo to go to position in variable 'pos'
-    Cwrist.write(valC3);    // tell servo to go to position in variable 'pos'
+    Cshoulder.write(valC1update); // tell servo to go to position in variable 'pos'
+    Celbow.write(valC2update);    // tell servo to go to position in variable 'pos'
+    Cwrist.write(valC3update);    // tell servo to go to position in variable 'pos'
 
-    Dshoulder.write(valD1); // tell servo to go to position in variable 'pos'
-    Delbow.write(valD2);    // tell servo to go to position in variable 'pos'
-    Dwrist.write(valD3);    // tell servo to go to position in variable 'pos'
+    Dshoulder.write(valD1update); // tell servo to go to position in variable 'pos'
+    Delbow.write(valD2update);    // tell servo to go to position in variable 'pos'
+    Dwrist.write(valD3update);    // tell servo to go to position in variable 'pos'
 
-    Eshoulder.write(valE1); // tell servo to go to position in variable 'pos'
-    Eelbow.write(valE2);    // tell servo to go to position in variable 'pos'
-    Ewrist.write(valE3);    // tell servo to go to position in variable 'pos'
+    Eshoulder.write(valE1update); // tell servo to go to position in variable 'pos'
+    Eelbow.write(valE2update);    // tell servo to go to position in variable 'pos'
+    Ewrist.write(valE3update);    // tell servo to go to position in variable 'pos'
 
-    Fshoulder.write(valF1); // tell servo to go to position in variable 'pos'
-    Felbow.write(valF2);    // tell servo to go to position in variable 'pos'
-    Fwrist.write(valF3);    // tell servo to go to position in variable 'pos'
+    Fshoulder.write(valF1update); // tell servo to go to position in variable 'pos'
+    Felbow.write(valF2update);    // tell servo to go to position in variable 'pos'
+    Fwrist.write(valF3update);    // tell servo to go to position in variable 'pos'
 
     //
     // The writing to the screen takes a long time and makes the motion not as smooth
@@ -349,8 +390,32 @@ void upServ()
   }
 }
 
+// *** Testing how fast it can go ***
+void tripodFWDultra()
+{
+  speed = 16;
+  aMultNew = 0;
+  bMultNew = 3;
+  cMultNew = 0;
+  dMultNew = 3;
+  eMultNew = 0;
+  fMultNew = 3;
+}
+
 // *** Move forward fast ***
-void pattern1()
+void tripodFWDfast()
+{
+  speed = 12;
+  aMultNew = 0;
+  bMultNew = 3;
+  cMultNew = 0;
+  dMultNew = 3;
+  eMultNew = 0;
+  fMultNew = 3;
+}
+
+// *** Move forward medium ***
+void tripodFWDstandard()
 {
   speed = 8;
   aMultNew = 0;
@@ -362,7 +427,7 @@ void pattern1()
 }
 
 // *** Move forward slow ***
-void pattern2()
+void tripodFWDslow()
 {
   speed = 2;
   aMultNew = 0;
@@ -374,7 +439,7 @@ void pattern2()
 }
 
 // *** DANCE MODE ***
-void pattern3()
+void dance()
 {
   speed = 8;
   aMultNew = 0;
@@ -488,10 +553,10 @@ void loop()
   Serial.println(control);
   delay(10);
 
-// Controls include 0, 1, 10, 11, 100, 101, 110, 111
+  // Controls include 0, 1, 10, 11, 100, 101, 110, 111
   if (control == 1)
   {
-    pattern1(); // Sets speed and gait offsets
+    tripodFWDslow(); // Sets speed and gait offsets
 
     readStraightArrays(); // Read array based on spd and offsets
     fixAngles();          // Fix angles from MATLAB to our servos
@@ -502,7 +567,7 @@ void loop()
 
   else if (control == 10)
   {
-    pattern2(); // Sets speed and gait offsets
+    tripodFWDstandard(); // Sets speed and gait offsets
 
     readStraightArrays(); // Read array based on spd and offsets
     fixAngles();          // Fix angles from MATLAB to our servos
@@ -513,9 +578,31 @@ void loop()
 
   else if (control == 11)
   {
-    pattern3(); // Sets speed and gait offsets
+    tripodFWDfast(); // Sets speed and gait offsets
 
-        readStraightArrays(); // Read array based on spd and offsets
+    readStraightArrays(); // Read array based on spd and offsets
+    fixAngles();          // Fix angles from MATLAB to our servos
+    smoothResponse();     // Smooth any changes that are too sudden
+    upServ();             // Update servos to new position
+    gaitCheck();          // Check for updated gait offsets and switch if needed
+  }
+
+  else if (control == 100)
+  {
+    tripodFWDultra(); // Sets speed and gait offsets
+
+    readStraightArrays(); // Read array based on spd and offsets
+    fixAngles();          // Fix angles from MATLAB to our servos
+    smoothResponse();     // Smooth any changes that are too sudden
+    upServ();             // Update servos to new position
+    gaitCheck();          // Check for updated gait offsets and switch if needed
+  }
+
+  else if (control == 101)
+  {
+    dance(); // Sets speed and gait offsets
+
+    readStraightArrays(); // Read array based on spd and offsets
     fixAngles();          // Fix angles from MATLAB to our servos
     smoothResponse();     // Smooth any changes that are too sudden
     upServ();             // Update servos to new position

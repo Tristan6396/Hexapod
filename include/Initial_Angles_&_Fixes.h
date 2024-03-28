@@ -1,7 +1,7 @@
 // Set initial center angles
 int valA1 = 130; // Ashoulder
-int valA2 = 90; // Aelbow
-int valA3 = 80; // Awrist
+int valA2 = 90;  // Aelbow
+int valA3 = 80;  // Awrist
 
 int valB1 = 100; // Bshoulder
 int valB2 = 90;  // Belbow
@@ -12,18 +12,16 @@ int valC2 = 90; // Celbow
 int valC3 = 80; // Cwrist
 
 int valD1 = 130; // Dshoulder
-int valD2 = 90; // Delbow
+int valD2 = 90;  // Delbow
 int valD3 = 100; // Dwrist
 
-int valE1 = 100;  // Eshoulder
-int valE2 = 90; // Eelbow
-int valE3 = 90; // Ewrist
+int valE1 = 100; // Eshoulder
+int valE2 = 90;  // Eelbow
+int valE3 = 90;  // Ewrist
 
-int valF1 = 45; // Fshoulder
-int valF2 = 90; // Felbow
+int valF1 = 45;  // Fshoulder
+int valF2 = 90;  // Felbow
 int valF3 = 100; // Fwrist
-
-
 
 // Tell how far away from initialAngle (90 degrees) the servos starting positions are
 int initialAngle = 90;
