@@ -1,5 +1,5 @@
 // Set initial center angles
-int valA1 = 110; // Ashoulder
+int valA1 = 130; // Ashoulder
 int valA2 = 90; // Aelbow
 int valA3 = 80; // Awrist
 
@@ -7,11 +7,11 @@ int valB1 = 100; // Bshoulder
 int valB2 = 90;  // Belbow
 int valB3 = 80;  // Bwrist
 
-int valC1 = 85; // Cshoulder
+int valC1 = 60; // Cshoulder
 int valC2 = 90; // Celbow
 int valC3 = 80; // Cwrist
 
-int valD1 = 105; // Dshoulder
+int valD1 = 130; // Dshoulder
 int valD2 = 90; // Delbow
 int valD3 = 100; // Dwrist
 
@@ -19,7 +19,7 @@ int valE1 = 100;  // Eshoulder
 int valE2 = 90; // Eelbow
 int valE3 = 90; // Ewrist
 
-int valF1 = 75; // Fshoulder
+int valF1 = 45; // Fshoulder
 int valF2 = 90; // Felbow
 int valF3 = 100; // Fwrist
 
@@ -91,8 +91,8 @@ int fixAwrist(int input)
 
 int fixBshoulder(int input)
 {
-    int a1 = ((input - 90) * shoulderMult) + 90;
-    int out = a1 + Bshoulderoffset - shoulderOffset;
+    int b1 = ((input - 90) * shoulderMult) + 90;
+    int out = b1 + Bshoulderoffset - shoulderOffset;
     return out;
 }
 int fixBelbow(int input)
@@ -108,8 +108,8 @@ int fixBwrist(int input)
 
 int fixCshoulder(int input)
 {
-    int a1 = ((input - 90) * shoulderMult) + 90;
-    int out = a1 + Cshoulderoffset - shoulderOffset;
+    int c1 = ((input - 90) * shoulderMult) + 90;
+    int out = c1 + Cshoulderoffset - shoulderOffset;
     return out;
 }
 int fixCelbow(int input)
@@ -125,8 +125,8 @@ int fixCwrist(int input)
 
 int fixDshoulder(int input)
 {
-    int a1 = ((input + 90) * shoulderMult) - 90;
-    int out = 180 + a1 + Dshoulderoffset + shoulderOffset;
+    int d1 = ((input + 90) * shoulderMult) - 90;
+    int out = 180 + d1 + Dshoulderoffset + shoulderOffset;
     return out;
 }
 int fixDelbow(int input)
@@ -136,14 +136,14 @@ int fixDelbow(int input)
 }
 int fixDwrist(int input)
 {
-    int out = 180 - input + Dwristoffset;
+    int out = 180 - (360 + input + Dwristoffset);
     return out;
 }
 
 int fixEshoulder(int input)
 {
-    int a1 = ((input + 90) * shoulderMult) - 90;
-    int out = 180 + a1 + Eshoulderoffset + shoulderOffset;
+    int e1 = ((input + 90) * shoulderMult) - 90;
+    int out = 180 + e1 + Eshoulderoffset + shoulderOffset;
     return out;
 }
 int fixEelbow(int input)
@@ -153,14 +153,14 @@ int fixEelbow(int input)
 }
 int fixEwrist(int input)
 {
-    int out = 180 - input + Ewristoffset;
+    int out = 180 - (360 + input + Ewristoffset);
     return out;
 }
 
 int fixFshoulder(int input)
 {
-    int a1 = ((input + 90) * shoulderMult) - 90;
-    int out = 180 + a1 + Fshoulderoffset + shoulderOffset;
+    int f1 = ((input + 90) * shoulderMult) - 90;
+    int out = 180 + f1 + Fshoulderoffset + shoulderOffset;
     return out;
 }
 int fixFelbow(int input)
@@ -170,6 +170,6 @@ int fixFelbow(int input)
 }
 int fixFwrist(int input)
 {
-    int out = 180 - input + Fwristoffset;
+    int out = 180 - (360 + input + Fwristoffset);
     return out;
 }

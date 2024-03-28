@@ -1,5 +1,7 @@
 #include <Arduino.h>
 
+// To switch between hexapods, change the 'Initial_Angles_&_Fixes.h' file the code calls, and change the pin designations under 'void setup'
+
 // Bugs:
 // - changing between gaits mid walking seems to be possible but sometimes does weird stuff, though this may just be something to do with pattern 3
 // - Pattern 0 gets its default values changed so is a 'stop' instead of a 'return to origin'
@@ -344,7 +346,7 @@ void setup()
   pinMode(CTRL0, INPUT);
   pinMode(CTRL1, INPUT);
 
-  // These are for the big hexapod
+  // // These are for the big hexapod
   // Ashoulder.attach(28);
   // Aelbow.attach(30);
   // Awrist.attach(32);
