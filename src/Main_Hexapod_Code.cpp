@@ -3,8 +3,9 @@
 // To switch between hexapods, change the 'Initial_Angles_&_Fixes.h' file the code calls, and change the pin designations under 'void setup'
 
 // Bugs:
-// - changing between gaits mid walking seems to be possible but sometimes does weird stuff, though this may just be something to do with pattern 3
-// - Pattern 0 gets its default values changed so is a 'stop' instead of a 'return to origin'
+// - changing between gaits mid walking seems to be possible but sometimes does weird stuff, though this may just be something to do with pattern 3 (fixed?)
+// - Pattern 0 gets its default values changed so is a 'stop' instead of a 'return to origin' (fixed?)
+// - something is wrong with how I'm fixing the elbow angle resulting ni one side being higher than the other
 
 // Add:
 // - reverse (add another servo update function that simply goes in reverse? would also be useful when turning)
@@ -12,7 +13,7 @@
 // - turning
 // - sensors
 // - strafing
-// - 
+// -
 
 ////  Initialization  //////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -20,8 +21,9 @@
 
 #include <Servo.h>
 
-#define CTRL0 9
-#define CTRL1 10
+#define CTRL1 9
+#define CTRL10 10
+#define CTRL100 11
 
 // Import arrays
 #include <Straight_A_Array.h>
@@ -56,6 +58,9 @@ Servo Felbow;
 Servo Fwrist;
 
 int control = 0;
+int control1 = 0;
+int control10 = 0;
+int control100 = 0;
 
 int maxnum = sizeof(PosArrayA) / sizeof(int) / 3;
 int tempval;
@@ -98,49 +103,46 @@ int fMultNew;
 // *** get the control bits ***
 void getcontrol()
 {
-  int start;
-  // Read the 2 control pins and then maybe do something..
-  control = 0;
-  start = digitalRead(CTRL0);
-  control = control + start;
-  start = digitalRead(CTRL1);
-  control = control + 2 * start;
+  // Read the control pins
+  control1 = digitalRead(CTRL1);
+  control10 = digitalRead(CTRL10);
+  control100 = digitalRead(CTRL100);
+  control = (control1) + (control10 * 10) + (control100 * 100);
 }
 
 // *** Go to the initial positions of each servo ***
 void pattern0()
 {
-  Ashoulder.write(valA1);
-  Aelbow.write(valA2);
-  Awrist.write(valA3);
+  Ashoulder.write(Ashoulderoffset + 90);
+  Aelbow.write(Aelbowoffset + 90);
+  Awrist.write(Awristoffset + 90);
 
-  Bshoulder.write(valB1);
-  Belbow.write(valB2);
-  Bwrist.write(valB3);
+  Bshoulder.write(Bshoulderoffset + 90);
+  Belbow.write(Belbowoffset + 90);
+  Bwrist.write(Bwristoffset + 90);
 
-  Cshoulder.write(valC1);
-  Celbow.write(valC2);
-  Cwrist.write(valC3);
+  Cshoulder.write(Cshoulderoffset + 90);
+  Celbow.write(Celbowoffset + 90);
+  Cwrist.write(Cwristoffset + 90);
 
-  Dshoulder.write(valD1);
-  Delbow.write(valD2);
-  Dwrist.write(valD3);
+  Dshoulder.write(Dshoulderoffset + 90);
+  Delbow.write(Delbowoffset + 90);
+  Dwrist.write(Dwristoffset + 90);
 
-  Eshoulder.write(valE1);
-  Eelbow.write(valE2);
-  Ewrist.write(valE3);
+  Eshoulder.write(Eshoulderoffset + 90);
+  Eelbow.write(Eelbowoffset + 90);
+  Ewrist.write(Ewristoffset + 90);
 
-  Fshoulder.write(valF1);
-  Felbow.write(valF2);
-  Fwrist.write(valF3);
+  Fshoulder.write(Fshoulderoffset + 90);
+  Felbow.write(Felbowoffset + 90);
+  Fwrist.write(Fwristoffset + 90);
 }
 
-// UPdates SERVo motor angles based on speed and starting offsets
-void upServ()
+void readStraightArrays()
 {
+  // Reads the arrays based on speed and starting offsets
   if (a <= last)
   {
-    // Just read the array and go to those angles
 
     valA1 = pgm_read_word_near(&PosArrayA[a][0]);
     valA2 = pgm_read_word_near(&PosArrayA[a][1]);
@@ -217,48 +219,106 @@ void upServ()
       f = first;
     }
   }
+}
 
+void fixAngles()
+{
+  // Modify to convert the "Matlab" angles into "Servo" angles
+  valA1 = fixAshoulder(valA1);
+  valA2 = fixAelbow(valA2);
+  valA3 = fixAwrist(valA3);
+
+  valB1 = fixBshoulder(valB1);
+  valB2 = fixBelbow(valB2);
+  valB3 = fixBwrist(valB3);
+
+  valC1 = fixCshoulder(valC1);
+  valC2 = fixCelbow(valC2);
+  valC3 = fixCwrist(valC3);
+
+  valD1 = fixDshoulder(valD1);
+  valD2 = fixDelbow(valD2);
+  valD3 = fixDwrist(valD3);
+
+  valE1 = fixEshoulder(valE1);
+  valE2 = fixEelbow(valE2);
+  valE3 = fixEwrist(valE3);
+
+  valF1 = fixFshoulder(valF1);
+  valF2 = fixFelbow(valF2);
+  valF3 = fixFwrist(valF3);
+}
+
+void smoothResponse()
+{
+  // Gets rid of jerkiness for when changing gaits
+  // Currently does nothing
+  // Maybe make a function like in fixAngles?
+  valA1 = valA1;
+  valA2 = valA2;
+  valA3 = valA3;
+
+  valB1 = valB1;
+  valB2 = valB2;
+  valB3 = valB3;
+
+  valC1 = valC1;
+  valC2 = valC2;
+  valC3 = valC3;
+
+  valD1 = valD1;
+  valD2 = valD2;
+  valD3 = valD3;
+
+  valE1 = valE1;
+  valE2 = valE2;
+  valE3 = valE3;
+
+  valF1 = valF1;
+  valF2 = valF2;
+  valF3 = valF3;
+}
+
+void gaitCheck()
+{
+  // Check if gait was switched and offsets legs accordingly
+  if ((aMult != aMultNew) || (bMult != bMultNew) || (cMult != cMultNew) || (dMult != dMultNew) || (eMult != eMultNew) || (fMult != fMultNew))
+  {
+    a = first + ((last / 6) * aMult);
+    b = first + ((last / 6) * bMult);
+    c = first + ((last / 6) * cMult);
+    d = first + ((last / 6) * dMult);
+    e = first + ((last / 6) * eMult);
+    f = first + ((last / 6) * fMult);
+  }
+}
+
+void upServ()
+{
+  // UPdates SERVo motor angles
   if (i <= last)
   {
-    // Modify to convert the "Matlab" angles into "Servo" angles
-    valA1 = fixAshoulder(valA1);
-    valA2 = fixAelbow(valA2);
-    valA3 = fixAwrist(valA3);
+
     Ashoulder.write(valA1); // tell servo to go to position in variable 'pos'
     Aelbow.write(valA2);    // tell servo to go to position in variable 'pos'
     Awrist.write(valA3);    // tell servo to go to position in variable 'pos'
 
-    valB1 = fixBshoulder(valB1);
-    valB2 = fixBelbow(valB2);
-    valB3 = fixBwrist(valB3);
     Bshoulder.write(valB1); // tell servo to go to position in variable 'pos'
     Belbow.write(valB2);    // tell servo to go to position in variable 'pos'
     Bwrist.write(valB3);    // tell servo to go to position in variable 'pos'
 
-    valC1 = fixCshoulder(valC1);
-    valC2 = fixCelbow(valC2);
-    valC3 = fixCwrist(valC3);
     Cshoulder.write(valC1); // tell servo to go to position in variable 'pos'
     Celbow.write(valC2);    // tell servo to go to position in variable 'pos'
     Cwrist.write(valC3);    // tell servo to go to position in variable 'pos'
 
-    valD1 = fixDshoulder(valD1);
-    valD2 = fixDelbow(valD2);
-    valD3 = fixDwrist(valD3);
     Dshoulder.write(valD1); // tell servo to go to position in variable 'pos'
     Delbow.write(valD2);    // tell servo to go to position in variable 'pos'
     Dwrist.write(valD3);    // tell servo to go to position in variable 'pos'
 
-    valE1 = fixEshoulder(valE1);
-    valE2 = fixEelbow(valE2);
-    valE3 = fixEwrist(valE3);
     Eshoulder.write(valE1); // tell servo to go to position in variable 'pos'
     Eelbow.write(valE2);    // tell servo to go to position in variable 'pos'
     Ewrist.write(valE3);    // tell servo to go to position in variable 'pos'
 
-    valF1 = fixFshoulder(valF1);
-    valF2 = fixFelbow(valF2);
-    valF3 = fixFwrist(valF3);
     Fshoulder.write(valF1); // tell servo to go to position in variable 'pos'
     Felbow.write(valF2);    // tell servo to go to position in variable 'pos'
     Fwrist.write(valF3);    // tell servo to go to position in variable 'pos'
@@ -278,7 +338,7 @@ void upServ()
     //
     // If the delay is too long or too short the movement is jerky.
     // This probably depends on the number of servos you are controlling
-    //
+
     delay(15); // waits 15 ms for the servo to reach the position
 
     i = i + speed;
@@ -286,15 +346,6 @@ void upServ()
     {
       i = first;
     }
-  }
-  if ((aMult != aMultNew) || (bMult != bMultNew) || (cMult != cMultNew) || (dMult != dMultNew) || (eMult != eMultNew) || (fMult != fMultNew))
-  {
-    a = first + ((last / 6) * aMult);
-    b = first + ((last / 6) * bMult);
-    c = first + ((last / 6) * cMult);
-    d = first + ((last / 6) * dMult);
-    e = first + ((last / 6) * eMult);
-    f = first + ((last / 6) * fMult);
   }
 }
 
@@ -308,7 +359,6 @@ void pattern1()
   dMultNew = 3;
   eMultNew = 0;
   fMultNew = 3;
-  upServ();
 }
 
 // *** Move forward slow ***
@@ -321,7 +371,6 @@ void pattern2()
   dMultNew = 3;
   eMultNew = 0;
   fMultNew = 3;
-  upServ();
 }
 
 // *** DANCE MODE ***
@@ -334,7 +383,6 @@ void pattern3()
   dMultNew = 0;
   eMultNew = 0;
   fMultNew = 0;
-  upServ();
 }
 
 ////  Main Code  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -343,8 +391,9 @@ void pattern3()
 
 void setup()
 {
-  pinMode(CTRL0, INPUT);
   pinMode(CTRL1, INPUT);
+  pinMode(CTRL10, INPUT);
+  pinMode(CTRL100, INPUT);
 
   // // These are for the big hexapod
   // Ashoulder.attach(28);
@@ -432,27 +481,47 @@ void setup()
 
 void loop()
 {
-  // put your main code here, to run repeatedly:
   // read control bits again to see if you are in the middle of changing something
+
   getcontrol();
   Serial.print("control = ");
   Serial.println(control);
   delay(10);
-  // if you are changing, then set to something else...
+
+// Controls include 0, 1, 10, 11, 100, 101, 110, 111
   if (control == 1)
   {
-    // *** get the control angles from the array ***
-    pattern1();
+    pattern1(); // Sets speed and gait offsets
+
+    readStraightArrays(); // Read array based on spd and offsets
+    fixAngles();          // Fix angles from MATLAB to our servos
+    smoothResponse();     // Smooth any changes that are too sudden
+    upServ();             // Update servos to new position
+    gaitCheck();          // Check for updated gait offsets and switch if needed
   }
-  else if (control == 2)
+
+  else if (control == 10)
   {
-    // *** Read the angles one at a time and go there ***
-    pattern2();
+    pattern2(); // Sets speed and gait offsets
+
+    readStraightArrays(); // Read array based on spd and offsets
+    fixAngles();          // Fix angles from MATLAB to our servos
+    smoothResponse();     // Smooth any changes that are too sudden
+    upServ();             // Update servos to new position
+    gaitCheck();          // Check for updated gait offsets and switch if needed
   }
-  else if (control == 3)
+
+  else if (control == 11)
   {
-    pattern3();
+    pattern3(); // Sets speed and gait offsets
+
+        readStraightArrays(); // Read array based on spd and offsets
+    fixAngles();          // Fix angles from MATLAB to our servos
+    smoothResponse();     // Smooth any changes that are too sudden
+    upServ();             // Update servos to new position
+    gaitCheck();          // Check for updated gait offsets and switch if needed
   }
+
   else
   {
     // Just sit there and don't move.
