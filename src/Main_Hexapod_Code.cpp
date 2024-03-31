@@ -137,9 +137,92 @@ int dMultNew;
 int eMultNew;
 int fMultNew;
 
+// Indicatory LEDs
+#define RED_LED 3
+#define GREEN_LED 5
+#define BLUE_LED 6
+
 ////  Custom Functions  ////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void red()
+{
+  digitalWrite(RED_LED, HIGH);
+  digitalWrite(GREEN_LED, LOW);
+  digitalWrite(BLUE_LED, LOW);
+}
+void yellow()
+{
+  digitalWrite(RED_LED, HIGH);
+  digitalWrite(GREEN_LED, HIGH);
+  digitalWrite(BLUE_LED, LOW);
+}
+void green()
+{
+  digitalWrite(RED_LED, LOW);
+  digitalWrite(GREEN_LED, HIGH);
+  digitalWrite(BLUE_LED, LOW);
+}
+void cyan()
+{
+  digitalWrite(RED_LED, LOW);
+  digitalWrite(GREEN_LED, HIGH);
+  digitalWrite(BLUE_LED, HIGH);
+}
+void blue()
+{
+  digitalWrite(RED_LED, LOW);
+  digitalWrite(GREEN_LED, LOW);
+  digitalWrite(BLUE_LED, HIGH);
+}
+void purple()
+{
+  digitalWrite(RED_LED, HIGH);
+  digitalWrite(GREEN_LED, LOW);
+  digitalWrite(BLUE_LED, HIGH);
+}
+void off()
+{
+  digitalWrite(RED_LED, LOW);
+  digitalWrite(GREEN_LED, LOW);
+  digitalWrite(BLUE_LED, LOW);
+}
+void rainbowWipe()
+{
+  red();
+  delay(150);
+  yellow();
+  delay(150);
+  green();
+  delay(150);
+  cyan();
+  delay(150);
+  blue();
+  delay(150);
+  purple();
+  delay(150);
+  off();
+}
+void errorFlash()
+{
+  red();
+  delay(200);
+  off();
+  delay(100);
+  red();
+  delay(200);
+  off();
+  delay(100);
+  red();
+  delay(200);
+  off();
+  delay(100);
+  red();
+  delay(200);
+  off();
+  delay(1000);
+}
 
 // *** get the control bits ***
 void getcontrol()
@@ -607,6 +690,14 @@ void loop()
     smoothResponse();     // Smooth any changes that are too sudden
     upServ();             // Update servos to new position
     gaitCheck();          // Check for updated gait offsets and switch if needed
+  }
+
+  else if (control == 110)
+  {
+  }
+
+  else if (control == 111)
+  {
   }
 
   else
