@@ -141,6 +141,8 @@ int fMultNew;
 #define RED_LED 3
 #define GREEN_LED 5
 #define BLUE_LED 6
+int currentmillis;
+int previousLED;
 
 ////  Custom Functions  ////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -206,6 +208,19 @@ void rainbowWipe()
 }
 void errorFlash()
 {
+  // currentmillis = millis() int i = 0 if ((currentmillis - previousLED) > 150)
+  // {
+  //   i = i + 1;
+  //   previousLED = millis()
+  // }
+  // if ((i == 1) || (i == 3) || (i == 5) || (i == 7))
+  // {
+  //   red();
+  // }
+  // if ((i == 2) || (i == 4) || (i == 6) || (i == 8))
+  // {
+  //   off();
+  // }
   red();
   delay(200);
   off();
@@ -524,7 +539,7 @@ void tripodFWDslow()
 // *** DANCE MODE ***
 void dance()
 {
-  speed = 8;
+  speed = 4;
   aMultNew = 0;
   bMultNew = 0;
   cMultNew = 0;
@@ -564,24 +579,24 @@ void setup()
   // Fwrist.attach(33);
 
   // These are for my hexapod
-  Ashoulder.attach(53);
-  Aelbow.attach(52);
-  Awrist.attach(51);
-  Bshoulder.attach(50);
+  Ashoulder.attach(45);
+  Aelbow.attach(46);
+  Awrist.attach(47);
+  Bshoulder.attach(48);
   Belbow.attach(49);
-  Bwrist.attach(48);
-  Cshoulder.attach(47);
-  Celbow.attach(46);
-  Cwrist.attach(45);
-  Dshoulder.attach(44);
-  Delbow.attach(43);
-  Dwrist.attach(41);
+  Bwrist.attach(50);
+  Cshoulder.attach(51);
+  Celbow.attach(52);
+  Cwrist.attach(53);
+  Dshoulder.attach(37);
+  Delbow.attach(36);
+  Dwrist.attach(35);
   Eshoulder.attach(40);
   Eelbow.attach(39);
   Ewrist.attach(38);
-  Fshoulder.attach(36);
-  Felbow.attach(37);
-  Fwrist.attach(35);
+  Fshoulder.attach(44);
+  Felbow.attach(43);
+  Fwrist.attach(41);
 
   Serial.begin(9600);
   Serial.setTimeout(10);

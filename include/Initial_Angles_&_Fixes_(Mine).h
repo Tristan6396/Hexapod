@@ -1,28 +1,28 @@
 // These are for my own hexapod at home. Use the other one for the big hexapod
 
 // Set initial center angles
-int valA1 = 100; // Ashoulder
-int valA2 = 80; // Aelbow
-int valA3 = 90; // Awrist
+int valA1 = 95; // Ashoulder
+int valA2 = 100; // Aelbow
+int valA3 = 95; // Awrist
 
-int valB1 = 100; // Bshoulder
-int valB2 = 80;  // Belbow
-int valB3 = 80;  // Bwrist
+int valB1 = 105; // Bshoulder
+int valB2 = 90;  // Belbow
+int valB3 = 120;  // Bwrist
 
-int valC1 = 70; // Cshoulder
-int valC2 = 90; // Celbow
-int valC3 = 90; // Cwrist
+int valC1 = 90; // Cshoulder
+int valC2 = 115; // Celbow
+int valC3 = 135; // Cwrist
 
-int valD1 = 100; // Dshoulder
+int valD1 = 120; // Dshoulder
 int valD2 = 90; // Delbow
 int valD3 = 90; // Dwrist
 
 int valE1 = 90;  // Eshoulder
-int valE2 = 110; // Eelbow
-int valE3 = 100; // Ewrist
+int valE2 = 100; // Eelbow
+int valE3 = 85; // Ewrist
 
-int valF1 = 65; // Fshoulder
-int valF2 = 90; // Felbow
+int valF1 = 80; // Fshoulder
+int valF2 = 110; // Felbow
 int valF3 = 90; // Fwrist
 
 // Tell how far away from initialAngle (90 degrees) the servos starting positions are
@@ -136,7 +136,7 @@ int fixDelbow(int input)
 }
 int fixDwrist(int input)
 {
-    int out = 180 - (360 + input + Dwristoffset);
+    int out = 180 - (input + Dwristoffset);
     return out;
 }
 
@@ -153,7 +153,7 @@ int fixEelbow(int input)
 }
 int fixEwrist(int input)
 {
-    int out = 180 - (360 + input + Ewristoffset);
+    int out = 180 - (input + Ewristoffset);
     return out;
 }
 
@@ -170,6 +170,6 @@ int fixFelbow(int input)
 }
 int fixFwrist(int input)
 {
-    int out = 180 - (360 + input + Fwristoffset);
+    int out = 180 - (input + Fwristoffset);
     return out;
 }
