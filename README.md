@@ -27,7 +27,7 @@ from the way they were, THE LABELS ON THE HEXAPOD MAY NOT FIT THESE YET.)
  C   REAR  D
 ```
 
-## Just some ideas
+### Just some ideas
 
 More complex motions would be nice once we can get it to walk in a straight line.
 
@@ -65,9 +65,6 @@ Several gaits would be useful to have access to such as:
 -All: Effectively belly-flopping. All six legs swing forward at once and then all six legs move the body forward. Maybe useful for ice or something. Probably not. Definitely funny anyways. If the servos are fast enough, this may be used to jump, though it definitely would not be fast enough to catch itself if it's jumping forward and would just slam.
 
 -Bipod: 'Faster than nature.' Only two legs are on the ground at once. This is very fast, but is NOT statically stable. As long as the hexapod is on flat ground, it should be able to run using this gait relying on dynamic stability. [Source](https://youtu.be/QZt3eJzHLSU?si=h863vg1OPpXfI5gd) [Source](https://youtu.be/DKsyJYkdZ_o?si=HSgxqJErNcM0EqTi)
-
-
-I've also been looking at this guys hexapod project on youtube. His stuff isn't perfectly applicable to our situation (mostly because his hexapod is not autonomous) but he's uploaded all his code and talks a bit about the process on his channel. I haven't taken the time needed to decipher enough to pull the necessary parts into this project, but maybe something in his code will save us a lot of time. [YouTube](https://www.youtube.com/@AecertRobotics) [GitHub](https://github.com/Ryan-Mirch/Aecerts_Hexapod_V1)
 
 
 # Useful Links:
