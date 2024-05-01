@@ -27,7 +27,9 @@ from the way they were, THE LABELS ON THE HEXAPOD MAY NOT FIT THESE YET.)
  C   REAR  D
 ```
 
-I'd like to implement the inverse kinematics into this arduino code rather than relying on outside generated arrays but I'm not sure how to go about this. Doing this would allow for more complex motions. 
+## Just some ideas
+
+More complex motions would be nice once we can get it to walk in a straight line.
 
 Adding a gyroscope would then allow for adjusting to steep inclines.
 
