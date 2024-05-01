@@ -58,7 +58,7 @@ Several gaits would be useful to have access to such as:
 
 -Quadruped: Two (probably) symmetric legs swing forward while the other four support and move the body forward. Very stable but of course slower than tripod. Likely would be useful to have for feeling out the terrain with the two front feet by switching to a four-legged, one-by-one mode. [Source](https://hexapodrobots.weebly.com/types-of-robot-gait.html)
 
--One-by-one: Extremely slow but stable. One leg swings forward at a time as the body inches forward with the other five legs. Could be useful for very difficult terrain but is probably overkill. [Source](https://hexapodrobots.weebly.com/types-of-robot-gait.html)                                        ^
+-One-by-one: Extremely slow but stable. One leg swings forward at a time as the body inches forward with the other five legs. Could be useful for very difficult terrain but is probably overkill. [Source](https://hexapodrobots.weebly.com/types-of-robot-gait.html)
 
 -Ripple and wave: One-by-one but better. These gaits move multiple legs at a time, but each starts moving offset from the others and the speed can be changed to ensure a good balance of speed and stability. Ripple gait also has a significant cool factor and is very spidery. [Source](https://hackaday.io/project/21904-hexapod-modelling-path-planning-and-control/log/62326-3-fundamentals-of-hexapod-robot)
 
